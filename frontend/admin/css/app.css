@@ -44,3 +44,11 @@ color:#767676;
 .well h2 {
     text-align:center;
 }
+
+.maps {
+    background-color: #CCCCCC;
+    height: 100%;
+    margin-top: -21px;
+    position: absolute;
+    width: 100%;
+}
