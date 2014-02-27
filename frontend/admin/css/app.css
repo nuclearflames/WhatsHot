@@ -35,4 +35,12 @@ color:#767676;
     text-align: center;
     display: block;
     line-height: 100px;
+}
+
+.well button a {
+    color: #fff;
 }​
+
+.well h2 {
+    text-align:center;
+}
