@@ -5,6 +5,8 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using WCFServiceWebRole1.Contexts;
+using WCFServiceWebRole1.Models;
 
 namespace WCFServiceWebRole1
 {
@@ -17,6 +19,34 @@ namespace WCFServiceWebRole1
             return string.Format("You entered: {0}", value);
         }
 
+        void SetUserProfile(string token, string defaultlocation)
+        {
+            // check if valid token & get user id
+            int userId = 0;
+
+            // check if default location is a valid location
+
+            using (var db = new WhatsHotContext())
+            {
+                var query = from u in db.Users
+                            where u.UserId == userId
+                            select u;
+
+                var user = query.FirstOrDefault();
+
+                user.DefaultLocation = defaultlocation;
+
+                db.SaveChanges();
+            } 
+
+        }
+
+
+
+        string GetUserProfile(string token)
+        {
+            return "Raarrrwww!";
+        }
         
     }
 }
