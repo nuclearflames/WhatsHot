@@ -16,7 +16,17 @@ namespace WCFServiceWebRole1
     {
         public string GetData(string value)
         {
-            return string.Format("You entered: {0}", value);
+            //return string.Format("You entered: {0}", value);
+
+            using (var db = new WhatsHotContext())
+            {
+                var user = new UserModel() { UserId = 1 };
+
+                db.Users.Add(user);
+                db.SaveChanges();
+            }
+
+            return "Success!";
         }
 
         public void SetUserProfile(string token, string defaultlocation)
