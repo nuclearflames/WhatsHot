@@ -14,8 +14,8 @@ namespace WCFServiceWebRole1
     {
 
         [OperationContract]
-        [WebGet(UriTemplate = "GetData/{value}")]
-        string GetData(int value);
+        [WebGet(UriTemplate = "GetData/{value}", ResponseFormat=WebMessageFormat.Json)]
+        string GetData(string value);
 
         
     }
