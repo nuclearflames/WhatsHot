@@ -28,23 +28,23 @@ namespace WCFServiceWebRole1
         string GetUserProfile(string token);
 
 
-        [OperationContract]
-        [WebGet(UriTemplate = "Authenticate/{user}/{password}/{method}", ResponseFormat = WebMessageFormat.Json)]
-        string Authenticate(string user, string password, string method);
+        //[OperationContract]
+        //[WebGet(UriTemplate = "Authenticate/{user}/{password}/{method}", ResponseFormat = WebMessageFormat.Json)]
+        //string Authenticate(string user, string password, string method);
 
 
-        [OperationContract]
-        [WebInvoke(UriTemplate = "Register/{user}/{password}/{defaultlocation}", ResponseFormat = WebMessageFormat.Json, Method = "POST")]
-        string Register(string user, string password, string defaultlocation);
+        //[OperationContract]
+        //[WebInvoke(UriTemplate = "Register/{user}/{password}/{defaultlocation}", ResponseFormat = WebMessageFormat.Json, Method = "POST")]
+        //string Register(string user, string password, string defaultlocation);
 
 
-        [OperationContract]
-        [WebInvoke(UriTemplate = "PostDestination/{token}/{lat}/{long}", ResponseFormat = WebMessageFormat.Json, Method = "POST")]
-        void PostDestination(string token, string lat, string @long);
+        //[OperationContract]
+        //[WebInvoke(UriTemplate = "PostDestination/{token}/{lat}/{long}", ResponseFormat = WebMessageFormat.Json, Method = "POST")]
+        //void PostDestination(string token, string lat, string @long);
 
-        [OperationContract]
-        [WebGet(UriTemplate = "GetHeatmapData/{token}/{lat}/{long}", ResponseFormat = WebMessageFormat.Json)]
-        HeatmapData[] GetHeatmapData(string token, string lat, string @long);
+        //[OperationContract]
+        //[WebGet(UriTemplate = "GetHeatmapData/{token}/{lat}/{long}", ResponseFormat = WebMessageFormat.Json)]
+        //HeatmapData[] GetHeatmapData(string token, string lat, string @long);
 
     }    
 }
