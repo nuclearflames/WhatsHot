@@ -3,7 +3,7 @@
   <Role name="WCFServiceWebRole1">
     <Instances count="1" />
     <ConfigurationSettings>
-      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=whatshotstorage;AccountKey=I+35yU55x4PEP9v7yb+k6gxxOyaGEu+Vg79LI64MvzQS/8JWhqP+Wyk6V6eqXPElwKqVExkG8M5usaqbhgNOKw==" />
     </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>
