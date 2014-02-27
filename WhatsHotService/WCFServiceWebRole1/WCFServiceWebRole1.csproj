@@ -94,6 +94,7 @@
   <ItemGroup>
     <Compile Include="AzureLocalStorageTraceListener.cs" />
     <Compile Include="Classes\LocationHelper.cs" />
+    <Compile Include="Classes\TokenHelper.cs" />
     <Compile Include="Contexts\WhatsHotContext.cs" />
     <Compile Include="Models\HeatmapData.cs" />
     <Compile Include="Models\Location.cs" />
