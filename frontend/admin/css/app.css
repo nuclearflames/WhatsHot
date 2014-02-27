@@ -54,6 +54,11 @@ color:#767676;
 }​
 
 .test {
+.well h2 {
+    text-align:center;
+}
+
+.maps {
     background-color: #CCCCCC;
     height: 100%;
     margin-top: -21px;
