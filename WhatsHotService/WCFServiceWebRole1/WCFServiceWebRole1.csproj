@@ -95,6 +95,8 @@
     <Compile Include="AzureLocalStorageTraceListener.cs" />
     <Compile Include="Contexts\WhatsHotContext.cs" />
     <Compile Include="Models\HeatmapData.cs" />
+    <Compile Include="Models\Location.cs" />
+    <Compile Include="Models\Token.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="AdamService1.svc.cs">
       <DependentUpon>AdamService1.svc</DependentUpon>
@@ -104,6 +106,7 @@
     </Compile>
     <Compile Include="IService1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Strings.cs" />
     <Compile Include="WebRole.cs" />
   </ItemGroup>
   <ItemGroup>
