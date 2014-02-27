@@ -66,6 +66,7 @@
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Spatial, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Spatial.5.2.0\lib\net40\System.Spatial.dll</HintPath>
     </Reference>
@@ -94,7 +95,13 @@
   <ItemGroup>
     <Compile Include="AzureLocalStorageTraceListener.cs" />
     <Compile Include="Classes\LocationHelper.cs" />
+    <Compile Include="Classes\TokenHelper.cs" />
     <Compile Include="Contexts\WhatsHotContext.cs" />
+    <Compile Include="DataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\HeatmapData.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Token.cs" />
@@ -118,6 +125,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config" />
+    <EntityDeploy Include="DataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="DataModel.edmx.diagram">
+      <DependentUpon>DataModel.edmx</DependentUpon>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

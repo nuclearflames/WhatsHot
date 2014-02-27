@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DataModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="DataModelStoreContainer">
+    <EntitySet Name="Users" EntityType="DataModel.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Tokens1" EntityType="DataModel.Store.Tokens1" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Locations" EntityType="DataModel.Store.Locations" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="UserTokens" Association="DataModel.Store.UserTokens">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Tokens" EntitySet="Tokens1" />
+    </AssociationSet>
+    <AssociationSet Name="UserLocation" Association="DataModel.Store.UserLocation">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Location" EntitySet="Locations" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="HashedPassword" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DefaultLocation" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tokens1">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TokenString" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TimeAdded" Type="datetime" Nullable="false" />
+    <Property Name="User_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Locations">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Lat" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Long" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TimeAdded" Type="datetime" Nullable="false" />
+    <Property Name="User_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="UserTokens">
+    <End Role="User" Type="DataModel.Store.Users" Multiplicity="1" />
+    <End Role="Tokens" Type="DataModel.Store.Tokens1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tokens">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserLocation">
+    <End Role="User" Type="DataModel.Store.Users" Multiplicity="1" />
+    <End Role="Location" Type="DataModel.Store.Locations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Location">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DataModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="DataModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Users" EntityType="DataModel.User" />
+          <EntitySet Name="Tokens1" EntityType="DataModel.Token" />
+          <AssociationSet Name="UserTokens" Association="DataModel.UserTokens">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Tokens" EntitySet="Tokens1" />
+          </AssociationSet>
+          <EntitySet Name="Locations" EntityType="DataModel.Location" />
+          <AssociationSet Name="UserLocation" Association="DataModel.UserLocation">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Location" EntitySet="Locations" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" />
+          <Property Name="HashedPassword" Type="String" Nullable="false" />
+          <Property Name="DefaultLocation" Type="String" Nullable="false" />
+          <NavigationProperty Name="Tokens" Relationship="DataModel.UserTokens" FromRole="User" ToRole="Tokens" />
+          <NavigationProperty Name="Locations" Relationship="DataModel.UserLocation" FromRole="User" ToRole="Location" />
+        </EntityType>
+        <EntityType Name="Token">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TokenString" Type="String" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="DataModel.UserTokens" FromRole="Tokens" ToRole="User" />
+          <Property Name="TimeAdded" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <Association Name="UserTokens">
+          <End Type="DataModel.User" Role="User" Multiplicity="1" />
+          <End Type="DataModel.Token" Role="Tokens" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Lat" Type="String" Nullable="false" />
+          <Property Name="Long" Type="String" Nullable="false" />
+          <Property Name="TimeAdded" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="DataModel.UserLocation" FromRole="Location" ToRole="User" />
+        </EntityType>
+        <Association Name="UserLocation">
+          <End Type="DataModel.User" Role="User" Multiplicity="1" />
+          <End Type="DataModel.Location" Role="Location" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DataModelStoreContainer" CdmEntityContainer="DataModelContainer">
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="HashedPassword" ColumnName="HashedPassword" />
+          <ScalarProperty Name="DefaultLocation" ColumnName="DefaultLocation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tokens1">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.Token)">
+        <MappingFragment StoreEntitySet="Tokens1">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TokenString" ColumnName="TokenString" />
+          <ScalarProperty Name="TimeAdded" ColumnName="TimeAdded" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Locations">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.Location)">
+        <MappingFragment StoreEntitySet="Locations">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Lat" ColumnName="Lat" />
+          <ScalarProperty Name="Long" ColumnName="Long" />
+          <ScalarProperty Name="TimeAdded" ColumnName="TimeAdded" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="UserTokens" TypeName="DataModel.UserTokens" StoreEntitySet="Tokens1">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
+      </EndProperty>
+      <EndProperty Name="Tokens">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UserLocation" TypeName="DataModel.UserLocation" StoreEntitySet="Locations">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
+      </EndProperty>
+      <EndProperty Name="Location">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
