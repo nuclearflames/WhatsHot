@@ -10,5 +10,7 @@ namespace WCFServiceWebRole1.Contexts
     public class WhatsHotContext : DbContext
     {
         public DbSet<UserModel> Users { get; set; }
+        public DbSet<Token> Tokens { get; set; }
+        public DbSet<Location> Locations { get; set; }
     }
 }
