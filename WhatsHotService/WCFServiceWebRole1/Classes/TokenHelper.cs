@@ -9,23 +9,16 @@ namespace WCFServiceWebRole1.Classes
 {
     public class TokenHelper
     {
-        public bool IsTokenValid(string token)
+        public bool IsTokenValid(string token, out int userId)
         {
             using( var db = new WhatsHotContext())
             {
-                return (from Token in db.Tokens
-                        where Token.TokenString == token
-                        select Token).Any();
-            }
-        }
+                var tokennn = (from Token in db.Tokens
+                               where Token.TokenString == token
+                               select Token).FirstOrDefault();
 
-        public int TokensUserId(string token)
-        {
-            using (var db = new WhatsHotContext())
-            {
-                return (from Token in db.Tokens
-                        where Token.TokenString == token
-                        select Token.UserId).FirstOrDefault();
+                userId = tokennn.UserId;
+                return tokennn.TokenString == token;
             }
         }
 

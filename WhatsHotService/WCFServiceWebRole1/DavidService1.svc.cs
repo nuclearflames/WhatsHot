@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using WCFServiceWebRole1.Classes;
 using WCFServiceWebRole1.Contexts;
 using WCFServiceWebRole1.Models;
 
@@ -14,27 +15,33 @@ namespace WCFServiceWebRole1
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public partial class Service1 : IService1
     {
+        private TokenHelper _tokenHelper = new TokenHelper();
+
         public string GetData(string value)
         {
-            //return string.Format("You entered: {0}", value);
-
             using (var db = new WhatsHotContext())
             {
-                var user = new UserModel() { UserId = 1 };
+                var userCount = db.Users.Count();
 
-                db.Users.Add(user);
+                var newuser = new UserModel() { UserId = userCount + 1, UserName = "test" };
+
+                db.Users.Add(newuser);
+
                 db.SaveChanges();
-            }
 
-            return "Success!";
+                return "success";
+            }
         }
 
         public void SetUserProfile(string token, string defaultlocation)
         {
             // check if valid token & get user id
-            int userId = 0;
+            int userId;
+            if (!_tokenHelper.IsTokenValid(token, out userId)) return;
+
 
             // check if default location is a valid location
+            if (!LocationHelper.IsPostcode(defaultlocation) && !LocationHelper.IsLatLong(defaultlocation)) return;
 
             using (var db = new WhatsHotContext())
             {
@@ -55,7 +62,22 @@ namespace WCFServiceWebRole1
 
         public string GetUserProfile(string token)
         {
-            return "Raarrrwww!";
+            // check if valid token & get user id
+            int userId;
+            if (!_tokenHelper.IsTokenValid(token, out userId)) return "Invalid token";
+
+            using (var db = new WhatsHotContext())
+            {
+                var query = from u in db.Users
+                            where u.UserId == userId
+                            select u;
+
+                var user = query.FirstOrDefault();
+
+                if (user == null) return "No user";
+
+                return user.DefaultLocation;
+            } 
         }
         
     }
