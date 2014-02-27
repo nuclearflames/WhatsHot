@@ -19,7 +19,7 @@ namespace WCFServiceWebRole1
             return string.Format("You entered: {0}", value);
         }
 
-        void SetUserProfile(string token, string defaultlocation)
+        public void SetUserProfile(string token, string defaultlocation)
         {
             // check if valid token & get user id
             int userId = 0;
@@ -43,7 +43,7 @@ namespace WCFServiceWebRole1
 
 
 
-        string GetUserProfile(string token)
+        public string GetUserProfile(string token)
         {
             return "Raarrrwww!";
         }
