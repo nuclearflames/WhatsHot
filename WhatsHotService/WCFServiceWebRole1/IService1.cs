@@ -33,9 +33,9 @@ namespace WCFServiceWebRole1
         //string Authenticate(string user, string password, string method);
 
 
-        //[OperationContract]
-        //[WebInvoke(UriTemplate = "Register/{user}/{password}/{defaultlocation}", ResponseFormat = WebMessageFormat.Json, Method = "POST")]
-        //string Register(string user, string password, string defaultlocation);
+        [OperationContract]
+        [WebInvoke(UriTemplate = "Register/{user}/{password}/{defaultlocation}", ResponseFormat = WebMessageFormat.Json, Method = "POST")]
+        string Register(string user, string password, string defaultlocation);
 
 
         //[OperationContract]

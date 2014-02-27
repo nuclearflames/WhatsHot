@@ -79,6 +79,30 @@ namespace WCFServiceWebRole1
                 return user.DefaultLocation;
             } 
         }
+
+        public string Register(string user, string password, string defaultlocation)
+        {
+            int userId;
+            if (!LocationHelper.IsPostcode(defaultlocation) && !(LocationHelper.IsLatLong(defaultlocation))) return "";
+
+            // check if user already exists
+            using (var db = new WhatsHotContext())
+            {
+                var userExists = (from User in db.Users
+                                  where User.UserName == user
+                                  select User).Any();
+
+                if (userExists) return "";
+
+                var newUser = new UserModel() { UserName = user, HashedPassword = password, DefaultLocation = defaultlocation };
+
+                db.Users.Add(newUser);
+                db.SaveChanges();
+                userId = newUser.UserId;
+            }
+
+            return _tokenHelper.CreateToken(userId);
+        }
         
     }
 }
