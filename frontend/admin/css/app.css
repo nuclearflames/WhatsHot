@@ -5,9 +5,20 @@ position: relative;
 top: 5px;
 }
 
+.icon-key, .icon-user {
+position: relative;
+top: -30px;
+left: 10px;
+}
+
 /* override font */
 * {
 font-family: Myriad Pro;
+}
+
+.well.panel{
+    position: relative;
+    top: 50px;
 }
 
 .well{
@@ -21,6 +32,7 @@ border-radius: 5px;
 
 .well .form-control {
 color:#767676;
+padding-left: 50px;
 }
 
 .well .form-control {
@@ -41,6 +53,10 @@ color:#767676;
     color: #fff;
 }​
 
-.well h2 {
-    text-align:center;
+.test {
+    background-color: #CCCCCC;
+    height: 100%;
+    margin-top: -21px;
+    position: absolute;
+    width: 100%;
 }
