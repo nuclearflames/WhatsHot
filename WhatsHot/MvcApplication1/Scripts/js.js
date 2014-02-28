@@ -109,16 +109,19 @@ var
     attachEvent = function () {
         $(window).on('hashchange', function () {
             if (window.location.hash == "#dragMarker") {
-                console.log(dragMarker);
                 $.ajax({
                     type: "POST",
                     data: JSON.stringify({
-                        lat: dragMarker.position.d,
-                        lng: dragMarker.position.e
+                        'lat': dragMarker.position.d,
+                        'lng': dragMarker.position.e
                     }),
-                    url: "home/PostData/",
+                    dataType: "json",
+                    contentType: 'application/json',
+                    url: "home/PostData",
                     success: function (e) {
-                        console.log(e);
+                        redrawHeatMapData(function () {
+                            redrawHeatMap();
+                        });
                     },
                     failure: function (e) {
                         console.log(e);
@@ -155,22 +158,19 @@ var
                 }
             } else {
                 window.location.hash = "select";
-                if (dragMarker == null) {
-                    dragMarker = new google.maps.Marker({
-                        position: map.getCenter(),
-                        map: map,
-                        draggable: true,
-                        title: "Where I am Going",
-                        icon: "img/hearts.png"
-                    });
+                dragMarker = new google.maps.Marker({
+                    position: map.getCenter(),
+                    map: map,
+                    draggable: true,
+                    title: "Where I am Going",
+                    icon: "img/hearts.png"
+                });
+                addInfoWindowPullData(map.getCenter());
+                google.maps.event.addListener(dragMarker, 'mouseup', function(e) {
                     addInfoWindowPullData(map.getCenter());
-                    google.maps.event.addListener(dragMarker, 'mouseup', function(e) {
-                        addInfoWindowPullData(map.getCenter());
-                    });
-                    markers.push(dragMarker);
-                    attachEvent();
-
-                }
+                });
+                markers.push(dragMarker);
+                attachEvent();
             }
         });
     },
