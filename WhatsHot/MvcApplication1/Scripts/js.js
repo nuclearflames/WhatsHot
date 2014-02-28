@@ -1,5 +1,9 @@
 $( document ).ready(function() {
 
+//Map size
+
+$('#map-canvas').width($(window).width());
+$('#map-canvas').height($(window).height());
 
 //Smart resize
 	(function($,sr){
