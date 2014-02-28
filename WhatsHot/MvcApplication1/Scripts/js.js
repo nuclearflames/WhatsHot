@@ -15,6 +15,13 @@ $('.signinwrap').hide();
 })
 
 
+    $('#leaderboard-handle').click(function(){
+        
+        $('#leaderboard ul').slideToggle();
+
+    });
+
+
 //Map size
 
 $('#map-canvas').width($(window).width());
@@ -46,6 +53,8 @@ $('#map-canvas').height($(window).height());
 	  jQuery.fn[sr] = function(fn){  return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
 
 	})(jQuery,'smartresize');
+
+
 
 
 if ($(window).width() < 768) {
