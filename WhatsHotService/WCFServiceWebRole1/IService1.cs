@@ -23,7 +23,7 @@ namespace WCFServiceWebRole1
         string GetData(string value);
 
         [OperationContract]
-        [WebInvoke(UriTemplate = "SetUserProfile/{token}/{defaultlocation}", ResponseFormat = WebMessageFormat.Json, Method="POST")]
+        [WebInvoke(UriTemplate = "SetUserProfile/{token}/{defaultlocation}", ResponseFormat = WebMessageFormat.Json)]
         void SetUserProfile(string token, string defaultlocation);
 
 
@@ -32,7 +32,7 @@ namespace WCFServiceWebRole1
         string GetUserProfile(string token);
 
         [OperationContract]
-        [WebInvoke(UriTemplate = "Register/{user}/{password}/{defaultlocation}", ResponseFormat = WebMessageFormat.Json, Method = "POST")]
+        [WebInvoke(UriTemplate = "Register/{user}/{password}/{defaultlocation}", ResponseFormat = WebMessageFormat.Json)]
         string Register(string user, string password, string defaultlocation);
 
         [OperationContract]
@@ -41,7 +41,7 @@ namespace WCFServiceWebRole1
 
 
         [OperationContract]
-        [WebInvoke(UriTemplate = "PostDestination/{token}/{lat}/{long}", ResponseFormat = WebMessageFormat.Json, Method = "POST")]
+        [WebInvoke(UriTemplate = "PostDestination/{token}/{lat}/{long}", ResponseFormat = WebMessageFormat.Json)]
         string PostDestination(string token, string lat, string @long);
 
         [OperationContract]
