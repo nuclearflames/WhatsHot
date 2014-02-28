@@ -94,7 +94,6 @@
           <Property Name="TokenString" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="TimeAdded" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="User_Id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK_UserTokens" FromRole="Tokens" ToRole="Users" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -105,7 +104,6 @@
           <Property Name="HashedPassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DefaultLocation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Locations" Relationship="Self.FK_UserLocation" FromRole="Users" ToRole="Locations" />
-          <NavigationProperty Name="Tokens" Relationship="Self.FK_UserTokens" FromRole="Users" ToRole="Tokens" />
         </EntityType>
         <Association Name="FK_UserLocation">
           <End Role="Users" Type="Self.User" Multiplicity="1" />
@@ -119,18 +117,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserTokens">
-          <End Role="Users" Type="Self.User" Multiplicity="1" />
-          <End Role="Tokens" Type="Self.Token" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Tokens">
-              <PropertyRef Name="User_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="whatshotEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Locations" EntityType="Self.Location" />
           <EntitySet Name="Tokens" EntityType="Self.Token" />
@@ -138,10 +124,6 @@
           <AssociationSet Name="FK_UserLocation" Association="Self.FK_UserLocation">
             <End Role="Users" EntitySet="Users" />
             <End Role="Locations" EntitySet="Locations" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserTokens" Association="Self.FK_UserTokens">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Tokens" EntitySet="Tokens" />
           </AssociationSet>
         </EntityContainer>
       </Schema>

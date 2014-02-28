@@ -198,8 +198,8 @@ namespace WCFServiceWebRole1
                 {
                     var angle = r.NextDouble() * Math.PI * 2;
                     var distance = r.NextDouble() * 0.2;
-                    latitude = Math.Cos(angle)*distance + 51.81;
-                    longitude = Math.Sin(angle) * distance + 0.18;
+                    latitude = Math.Cos(angle)*distance + 51.46;
+                    longitude = Math.Sin(angle) * distance + 0.106;
                     
                     var newvote = new Location()
                     {
