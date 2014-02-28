@@ -1,85 +1,11 @@
-#map-canvas h3 {
-	color: black;
-}
-
-/* some default fontello styles */
-.icon-heart, .icon-cog {
-font-size:24px;
-position: relative;
-top: 5px;
-}
-
-.icon-key, .icon-user {
-position: relative;
-top: -30px;
-left: 10px;
-}
-
-/* override font */
-* {
-font-family: Myriad Pro;
-}
-
-.well.panel{
-    position: relative;
-    top: 50px;
-}
-
-.well{
-background-color:#f4f3f3;
-border-radius: 5px;
-}
-
-.well .form-control, .well button {
-border-radius: 5px;
-}
-
-.well .form-control {
-color:#767676;
-padding-left: 50px;
-}
-
-.well .form-control {
-color:#767676;
-}
-
-.well .form-control:before {
-    content: '\e80c';
-    width: 100%;
-    height: 100%;
-    font-size: 5.0em;
-    text-align: center;
-    display: block;
-    line-height: 100px;
-}
-
-.well button a {
-    color: #fff;
-}​
-
-.well h2 {
-    text-align:center;
-}
-
-.maps {
-    background-color: #CCCCCC;
-    height: 100%;
-    margin-top: -21px;
-    position: absolute;
-    width: 100%;
-}
-
-
-
 /* Base
 ==========================*/
 
-body {
-	background: url(../img/sample_map.png)}
+body {overflow: hidden}
 
 /* override font */
 * {
-font-family: Myriad Pro;
+font-family: 'PT Sans', sans-serif;
 }
 
 h1,h2,h3,h4,h5,h6, .font-quote, h3 a {
@@ -109,7 +35,9 @@ top: 5px;
 
 .navbar {
 	border: 0;
-	border-bottom: 1px solid #fff}
+	border-bottom: 1px solid #fff;
+	max-height: 56px;
+	overflow: hidden}
 
 .navbar-right a {
 	display: block;
@@ -212,6 +140,7 @@ top: 5px;
     border: solid transparent;
     border-right-color: #012351;
     transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
     border-width: 10px }
 
 .placeholder span {
@@ -246,11 +175,58 @@ top: 5px;
 	margin-top: 30px;
 	box-shadow: 0 3px 7px 1px #888}
 
+.navbar-form input[type="text"] {
+	float:left }
+
+.navbar-form {
+	float: left;
+	position: relative;
+	top: 2px}
+
+.navbar-header {
+	width: 100%;
+	min-width: 315px}
+
+.navbar-form button {
+	float: left }
+
+.navbar-right {
+	margin-right: 0 !important}
+
+.menu-icons {
+	float: right}
 
 /* Handle
 ==========================*/
 
 @media (max-width: 767px) {
+
+.logo {
+	display: none;
+}
+
+.navbar-toggle {
+	display: none;
+}
+
+.menu-icons {
+	width: 30%;
+	float: right;
+}
+
+.menu-icons li {
+	float: right;
+
+}
+
+.menu-icons li a {
+	padding: 0 px;
+	text-align: center;
+}
+
+.navbar-right {
+	margin: 0 !important;}
+
 	#leaderboard-handle {
 		background: url(../img/handle.png) no-repeat;
 		position: absolute;
@@ -260,4 +236,41 @@ top: 5px;
 		z-index: 100;
 		height: 30px
 	}
+	
+	.navbar-form {
+		position: relative;
+		width: 65%;
+		left: 20px;
+		top:2px;
+		border: 0 !important;
+		box-shadow: none;
+		padding: 0;
+		float: left
+	}
+
+	.navbar-form input[type="text"] {
+		width:75%;
+	}
+}
+
+@media (max-width: 380px) {
+
+	.navbar-form input[type="text"] {
+		width: 70%;
+	}
+
+	.navbar-right a{
+
+		padding: 12px 4px 17px !important;
+	}
+
+}
+
+
+@media screen and (-webkit-min-device-pixel-ratio:0) { 
+ 
+ .navbar-form input[type="text"]{height:21px} 
+
+ .navbar {height: 55px; overflow: hidden}
+
 }
