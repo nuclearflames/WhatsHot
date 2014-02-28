@@ -51,7 +51,7 @@ namespace WCFServiceWebRole1
 
         [OperationContract]
         [WebGet(UriTemplate = "GetHeatmapData/{token}/{lat}/{long}", ResponseFormat = WebMessageFormat.Json)]
-        HeatmapData[] GetHeatmapData(string token, string lat, string @long);
+        HeatmapList GetHeatmapData(string token, string lat, string @long);
 
     }    
 }

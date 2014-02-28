@@ -6,6 +6,11 @@ using System.Web;
 
 namespace WCFServiceWebRole1.Models
 {
+    public class HeatmapList
+    {
+        public HeatmapData[] Locations { get; set; }
+    }
+
     public class HeatmapData
     {
         public Int64 Id { get; set; }

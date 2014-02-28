@@ -164,7 +164,7 @@ namespace WCFServiceWebRole1
         /// <param name="lat"></param>
         /// <param name="long"></param>
         /// <returns></returns>
-        public HeatmapData[] GetHeatmapData(string token, string lat, string @long)
+        public HeatmapList GetHeatmapData(string token, string lat, string @long)
         {
             //int userId;
             //if (!_tokenHelper.IsTokenValid(token, out userId)) return dataForUser.ToArray();
@@ -174,8 +174,11 @@ namespace WCFServiceWebRole1
 
             using (var db = new whatshotEntities())
             {
-                return (from Locations in db.Locations
-                             select new HeatmapData() { Latitude = Locations.Lat, Longitude = Locations.Long, Weight = 1 }).ToArray();
+                return new HeatmapList
+                {
+                    Locations = (from Locations in db.Locations
+                                 select new HeatmapData() { Latitude = Locations.Lat, Longitude = Locations.Long, Weight = 1 }).ToArray()
+                };
             }
         }
 
