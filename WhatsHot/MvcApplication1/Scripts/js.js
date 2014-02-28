@@ -105,7 +105,7 @@ $('#location').val('Bonhill St, London')
 var
 	map,
 	markers = [],
-    mapCenter = new google.maps.LatLng(51.62, -0.3),
+    mapCenter = new google.maps.LatLng(51.50, -0.13),
     mapOptions = {
         center: mapCenter,
         zoom: 12,
@@ -118,6 +118,7 @@ var
     infowindow,
     searchMarker,
     styles = [ { "featureType": "poi.park", "stylers": [ { "color": "#999999" }, { "visibility": "off" } ] },{ "featureType": "road.highway", "stylers": [ { "visibility": "simplified" }, { "invert_lightness": true }, { "color": "#aaaaaa" } ] },{ "featureType": "road.local", "stylers": [ { "visibility": "simplified" }, { "color": "#bbbbbb" } ] },{ "featureType": "road.arterial", "stylers": [ { "visibility": "simplified" }, { "color": "#cccccc" } ] },{ "featureType": "poi", "stylers": [ { "visibility": "off" } ] },{ "featureType": "transit", "stylers": [ { "visibility": "off" } ] },{ "featureType": "water", "stylers": [ { "color": "#ffffff" } ] },{ } ],
+    starMap = [],
 
     initialiseMarkers = function (callback) {
     	$.ajax({
@@ -129,7 +130,7 @@ var
                     var marker = new google.maps.Marker({
                         position: new google.maps.LatLng(v.Latitude, v.Longitude),
                         map: null,
-                        weight: v.weight
+                        weight: v.Weight
                     });
                     markers.push(marker);
                 })
@@ -140,6 +141,17 @@ var
         });
         callback();
     },
+    dataShowTemplate = [
+        "<li>",
+            "<span class='star'>",
+                "<img src='img/star.png'>",
+            "</span>",
+            "<%= data.address %>",
+            "<span>",
+                "<%= data.going %> going",
+            "</span>",
+        "</li>"
+    ].join("\n"),
 
     addMarker = function (latlng, title) {
     	dragMarker = new google.maps.Marker({
@@ -204,6 +216,17 @@ var
             }
         });
     },
+    sortByProperty = function(property) {
+        return function (a, b) {
+            var sortStatus = 0;
+            if (a[property] > b[property]) {
+                sortStatus = -1;
+            } else if (a[property] < b[property]) {
+                sortStatus = 1;
+            }
+            return sortStatus;
+        };
+    },
     redrawHeatMapData = function (callback) {
     	for (var i = 0; i < markers.length; i++) {
 	    	heatMapData.push({
@@ -217,11 +240,43 @@ var
     	if (heatMap != null) {
     		heatMap.setMap(null);    		
     	}
+        heatMapData.sort(sortByProperty("weight"));
+        
+        putStarsOnScreen(heatMapData);
+
     	heatMap = new google.maps.visualization.HeatmapLayer({
   			data: heatMapData
 		});
         heatMap.set('radius', heatMap.get('radius') ? null : 30);
 		heatMap.setMap(map);
+    },
+
+    putStarsOnScreen = function(data) {
+        for (var i = 0; i < 3; i++) {
+            var starMarker = new google.maps.Marker({
+                position: data[i].location,
+                title: "Leader",
+                map: map,
+                draggable: false,
+                icon: "../img/star-med.png"
+            });
+            var request = {
+                location: data[i].location,
+                radius: 10
+            };
+            service = new google.maps.places.PlacesService(map);
+            service.nearbySearch(request, service1);
+        }
+    },
+
+    service1 = function (results, status) {
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+            var data1 = {
+                'address': results[0].name,
+                'going': Math.ceil(Math.random() * 300)
+            };
+            $("#leaderboard ul").append(_.template(dataShowTemplate, data1, { variable: "data" }));
+        }
     },
 
     initialiseEvents = function () {
@@ -286,24 +341,14 @@ var
 			service.textSearch(request, searchData);
     	});
     },
-    dataShowTemplate = [
-        "<li>",
-            "<span class='star'>",
-                "<img src='img/star.png'>",
-            "</span>",
-            "<%= data.address %>",
-            "<span>",
-                "100 going",
-            "</span>",
-        "</li>"
-    ].join("\n"),
     searchData = function (results, status) {
     	if (status == google.maps.places.PlacesServiceStatus.OK) {
     		addMarker(results[0].geometry.location, results[0].formatted_address);
     		map.setCenter(results[0].geometry.location);
             var data = {
-                'address': results[0].name  
-            }
+                'address': results[0].name,
+                'going': results[0].rating * 10
+            };
             $("#leaderboard ul").prepend(_.template(dataShowTemplate, data, { variable: "data" }));
     	}
     },
