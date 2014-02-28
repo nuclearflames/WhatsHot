@@ -202,6 +202,7 @@ top: 5px;
 
 .signinwrap {
 	position: absolute;
+	top: 60px;
 	z-index: 10000000000000000;
 }
 
