@@ -1,0 +1,52 @@
+﻿<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin - nuclearflames/HeatMap</title>
+    <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/fontello.css" />
+    <link rel="stylesheet" href="css/app.css" />
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../bower_components/html5shiv/dist/html5shiv.js"></script>
+      <script src="../bower_components/respond/dest/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="navbar navbar-inverse">
+        <div class="navbar-header">
+            <button data-target=".navbar-inverse-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="index.html" class="navbar-brand logo"><img src="img/logo-whiteout.svg"></a>
+        </div>
+        <div class="navbar-collapse collapse navbar-inverse-collapse">
+
+            <form class="navbar-form navbar-left">
+                <input type="text" placeholder="Search map" class="form-control col-lg-8">
+                <button type="button" class="btn btn-default"><span class="icon-search"></span></button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a><span class="icon-heart"></span></a></li>
+                <li><a><span class="icon-cog"></span></a></li>
+            </ul>
+        </div><!-- /.nav-collapse -->
+    </div>
+
+    @RenderBody()
+
+    <script src="scripts/jquery.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>
+    <script src="scripts/bootswatch.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=visualization,places&key=AIzaSyCHK19GVr9IbguhKsbTMGTAwDZmLXm9jVQ&sensor=false">
+    </script>
+    <script src="scripts/js.js"></script>
+
+</body>
+</html>

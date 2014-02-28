@@ -7,6 +7,8 @@ Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "WhatsHotService", "WhatsHot
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCFServiceWebRole1", "WCFServiceWebRole1\WCFServiceWebRole1.csproj", "{C9B3AEDB-B4A9-4F39-B029-28E808795ADA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatsHot", "..\WhatsHot\MvcApplication1\WhatsHot.csproj", "{CD092D48-D716-4549-91A5-55CF7588C948}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{C9B3AEDB-B4A9-4F39-B029-28E808795ADA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9B3AEDB-B4A9-4F39-B029-28E808795ADA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9B3AEDB-B4A9-4F39-B029-28E808795ADA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD092D48-D716-4549-91A5-55CF7588C948}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD092D48-D716-4549-91A5-55CF7588C948}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD092D48-D716-4549-91A5-55CF7588C948}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD092D48-D716-4549-91A5-55CF7588C948}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
