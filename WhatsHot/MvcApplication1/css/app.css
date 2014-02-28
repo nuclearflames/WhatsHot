@@ -36,7 +36,9 @@ top: 5px;
 
 .navbar {
 	border: 0;
-	border-bottom: 1px solid #fff}
+	border-bottom: 1px solid #fff;
+	max-height: 56px;
+	overflow: hidden}
 
 .navbar-right a {
 	display: block;
