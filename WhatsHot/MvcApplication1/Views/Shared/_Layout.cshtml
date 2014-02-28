@@ -17,30 +17,29 @@ and open the template in the editor.
     <![endif]-->
 </head>
 <body>
-    <div class="navbar navbar-inverse">
-        <div class="navbar-header">
-            <button data-target=".navbar-inverse-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a href="index.html" class="navbar-brand logo"><img src="img/logo-whiteout.svg"></a>
-        </div>
-        <div class="navbar-collapse collapse navbar-inverse-collapse">
+<div class="navbar navbar-inverse">
+  <div class="navbar-header">
+    <button data-target=".navbar-inverse-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a href="index.html" class="navbar-brand logo"><img src="img/logo-whiteout.svg"></a>
 
-            <form class="navbar-form navbar-left">
-                <input type="text" id="search-box" placeholder="Search map" class="form-control col-lg-8">
-                <button type="button" id="submit-box" class="btn btn-default"><span class="icon-search"></span></button>
-            </form>
-            <div class="menu-icons">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a><span class="icon-heart" id="heart-button"></span></a></li>
-                    <li><a><span class="icon-cog" id="settings-button"></span></a></li>
-                </ul>
-            </div>
-        </div>
-        <!-- /.nav-collapse -->
-    </div>
+    <form class="navbar-form">
+      <input type="text" placeholder="Search map" class="form-control col-lg-8" id="search-box">
+      <button type="button" class="btn btn-default" id="submit-box"><span class="icon-search"></span></button>
+    </form>
+
+  <div class="menu-icons">
+    <ul class="nav navbar-nav navbar-right">
+      <li><a><span class="icon-cog" id="settings-button"></span></a></li>
+      <li><a><span class="icon-heart" id="heart-button"></span></a></li>
+    </ul>
+  </div>
+  </div>
+<!-- /.nav-collapse -->
+</div>
 
     @RenderBody()
 
