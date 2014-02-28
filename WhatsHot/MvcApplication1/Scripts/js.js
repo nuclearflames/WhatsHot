@@ -67,12 +67,6 @@ if ($(window).width() < 768) {
 
 	$('#leaderboard ul').hide();
 
-	$('#leaderboard-handle').click(function(){
-		
-		$('#leaderboard ul').slideToggle();
-
-	});
-
 }
 
 
