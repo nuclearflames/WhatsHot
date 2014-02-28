@@ -131,8 +131,8 @@ namespace WCFServiceWebRole1
         public string PostDestination(string token, string lat, string @long)
         {
             // check if valid token & get user id
-            int userId;
-            if (!_tokenHelper.IsTokenValid(token, out userId)) return "Invalid token";
+            //int userId;
+            //if (!_tokenHelper.IsTokenValid(token, out userId)) return "Invalid token";
 
             double latitude, longitude;
 
@@ -145,7 +145,7 @@ namespace WCFServiceWebRole1
                     Lat = latitude.ToString(),
                     Long = longitude.ToString(),
                     TimeAdded = DateTime.Now,
-                    User_Id = userId
+                    User_Id = -1//userId
                 };
 
                 db.Locations.Add(newvote);
@@ -166,23 +166,17 @@ namespace WCFServiceWebRole1
         /// <returns></returns>
         public HeatmapData[] GetHeatmapData(string token, string lat, string @long)
         {
-            List<HeatmapData> dataForUser = new List<HeatmapData>();
-
-            int userId;
-            if (!_tokenHelper.IsTokenValid(token, out userId)) return dataForUser.ToArray();
+            //int userId;
+            //if (!_tokenHelper.IsTokenValid(token, out userId)) return dataForUser.ToArray();
 
             double latitude, longitude;
-            if (!LocationHelper.IsLat(lat, out latitude) || !(LocationHelper.IsLong(@long, out longitude))) return dataForUser.ToArray();
-
-            List<Location> locations;
+            if (!LocationHelper.IsLat(lat, out latitude) || !(LocationHelper.IsLong(@long, out longitude))) return null;
 
             using (var db = new whatshotEntities())
             {
-                locations = (from Locations in db.Locations
-                             select Locations).ToList();
+                return (from Locations in db.Locations
+                             select new HeatmapData() { Latitude = Locations.Lat, Longitude = Locations.Long, Weight = 1 }).ToArray();
             }
-
-            return dataForUser.ToArray();
         }
         
     }
