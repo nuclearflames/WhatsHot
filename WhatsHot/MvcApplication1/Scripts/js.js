@@ -14,6 +14,27 @@ $('.hidden-out').show();
 $('.signinwrap').hide();
 })
 
+
+    $('#leaderboard-handle').click(function(){
+        
+        $('#leaderboard ul').slideToggle();
+
+    });
+
+
+//Map size
+
+$('.signinwrap').show();
+
+});
+
+$('#signinbutton').click(function(){
+
+$('.hidden-in').hide();
+$('.hidden-out').show();
+$('.signinwrap').hide();
+})
+
 //Smart resize
 	(function($,sr){
 
@@ -40,6 +61,8 @@ $('.signinwrap').hide();
 	  jQuery.fn[sr] = function(fn){  return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
 
 	})(jQuery,'smartresize');
+
+
 
 
 if ($(window).width() < 768) {
