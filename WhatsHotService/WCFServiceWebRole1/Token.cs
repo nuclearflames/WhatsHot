@@ -18,7 +18,5 @@ namespace WCFServiceWebRole1
         public string TokenString { get; set; }
         public System.DateTime TimeAdded { get; set; }
         public int User_Id { get; set; }
-    
-        public virtual User User { get; set; }
     }
 }

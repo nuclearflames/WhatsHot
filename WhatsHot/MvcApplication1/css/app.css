@@ -206,6 +206,8 @@ top: 5px;
 .menu-icons {
 	float: right}
 
+
+
 /* Handle
 ==========================*/
 
@@ -284,3 +286,9 @@ top: 5px;
  .navbar {height: 55px; overflow: hidden}
  
 }
+
+@media screen\0 {
+ .navbar-form input[type="text"]{height:21px} 
+
+ .navbar {height: 55px; overflow: hidden}
+} 
