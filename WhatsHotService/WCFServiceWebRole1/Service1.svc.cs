@@ -24,11 +24,11 @@ namespace WCFServiceWebRole1
 
         public string GetData(string value)
         {
-            using (var db = new WhatsHotContext())
+            using (var db = new whatshotEntities())
             {
                 var userCount = db.Users.Count();
 
-                var newuser = new UserModel() { UserId = userCount + 1, UserName = "test" };
+                var newuser = new User() { Id = userCount + 1, UserName = "test", DefaultLocation = "", HashedPassword = "" };
 
                 db.Users.Add(newuser);
 
@@ -49,10 +49,10 @@ namespace WCFServiceWebRole1
             double lat,loong;
             if (!LocationHelper.IsPostcode(defaultlocation) && !LocationHelper.IsLatLong(defaultlocation,out lat, out loong)) return;
 
-            using (var db = new WhatsHotContext())
+            using (var db = new whatshotEntities())
             {
                 var query = from u in db.Users
-                            where u.UserId == userId
+                            where u.Id == userId
                             select u;
 
                 var user = query.FirstOrDefault();
@@ -72,10 +72,10 @@ namespace WCFServiceWebRole1
             int userId;
             if (!_tokenHelper.IsTokenValid(token, out userId)) return "Invalid token";
 
-            using (var db = new WhatsHotContext())
+            using (var db = new whatshotEntities())
             {
                 var query = from u in db.Users
-                            where u.UserId == userId
+                            where u.Id == userId
                             select u;
 
                 var user = query.FirstOrDefault();
@@ -93,7 +93,7 @@ namespace WCFServiceWebRole1
             if (!LocationHelper.IsPostcode(defaultlocation) && !(LocationHelper.IsLatLong(defaultlocation,out lat, out loong))) return "";
 
             // check if user already exists
-            using (var db = new WhatsHotContext())
+            using (var db = new whatshotEntities())
             {
                 var userExists = (from User in db.Users
                                   where User.UserName == user
@@ -101,11 +101,11 @@ namespace WCFServiceWebRole1
 
                 if (userExists) return "";
 
-                var newUser = new UserModel() { UserName = user, HashedPassword = password, DefaultLocation = defaultlocation };
+                var newUser = new User() { UserName = user, HashedPassword = password, DefaultLocation = defaultlocation };
 
                 db.Users.Add(newUser);
                 db.SaveChanges();
-                userId = newUser.UserId;
+                userId = newUser.Id;
             }
 
             return _tokenHelper.CreateToken(userId);
@@ -114,7 +114,7 @@ namespace WCFServiceWebRole1
         public string Authenticate(string user, string password, string method)
         {
             int userId;
-            using (var db = new WhatsHotContext())
+            using (var db = new whatshotEntities())
             {
                 var theuser = (from User in db.Users
                            where User.UserName == user && User.HashedPassword == password
@@ -122,7 +122,7 @@ namespace WCFServiceWebRole1
 
                 if (theuser == null) return "";
 
-                userId = theuser.UserId;
+                userId = theuser.Id;
             }
 
             return _tokenHelper.CreateToken(userId);
@@ -138,14 +138,14 @@ namespace WCFServiceWebRole1
 
             if (!LocationHelper.IsLat(lat, out latitude) || !(LocationHelper.IsLong(@long, out longitude))) return "Invalid lat/long";
 
-            using (var db = new WhatsHotContext())
+            using (var db = new whatshotEntities())
             {
                 var newvote = new Location()
                 {
                     Lat = latitude.ToString(),
                     Long = longitude.ToString(),
                     TimeAdded = DateTime.Now,
-                    UserId = userId
+                    User_Id = userId
                 };
 
                 db.Locations.Add(newvote);
@@ -176,7 +176,7 @@ namespace WCFServiceWebRole1
 
             List<Location> locations;
 
-            using (var db = new WhatsHotContext())
+            using (var db = new whatshotEntities())
             {
                 locations = (from Locations in db.Locations
                              select Locations).ToList();

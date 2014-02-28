@@ -11,13 +11,13 @@ namespace WCFServiceWebRole1.Classes
     {
         public bool IsTokenValid(string token, out int userId)
         {
-            using( var db = new WhatsHotContext())
+            using (var db = new whatshotEntities())
             {
                 var tokennn = (from Token in db.Tokens
                                where Token.TokenString == token
                                select Token).FirstOrDefault();
 
-                userId = tokennn.UserId;
+                userId = tokennn.User_Id;
                 return tokennn.TokenString == token;
             }
         }
@@ -28,12 +28,12 @@ namespace WCFServiceWebRole1.Classes
 
             if (!string.IsNullOrWhiteSpace(existingToken)) return existingToken;
 
-            using (var db = new WhatsHotContext())
+            using (var db = new whatshotEntities())
             {
                 var token = new Token()
                 {
                     TimeAdded = DateTime.Now,
-                    UserId = userId,
+                    User_Id = userId,
                     TokenString = Guid.NewGuid().ToString()
                 };
 
@@ -46,10 +46,10 @@ namespace WCFServiceWebRole1.Classes
 
         public string HasToken(int userId)
         {
-            using (var db = new WhatsHotContext())
+            using (var db = new whatshotEntities())
             {
                 return (from Token in db.Tokens
-                        where Token.UserId == userId
+                        where Token.User_Id == userId
                         select Token.TokenString).FirstOrDefault();
             }
         }

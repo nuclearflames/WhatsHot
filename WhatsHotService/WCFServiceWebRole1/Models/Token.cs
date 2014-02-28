@@ -6,12 +6,12 @@ using System.Web;
 
 namespace WCFServiceWebRole1.Models
 {
-    public class Token
-    {
-        [Key]
-        public int ID {get;set;}
-        public string TokenString { get; set; }
-        public int UserId { get; set; }
-        public DateTime TimeAdded { get; set; }
-    }
+    //public class Token
+    //{
+    //    [Key]
+    //    public int ID {get;set;}
+    //    public string TokenString { get; set; }
+    //    public int UserId { get; set; }
+    //    public DateTime TimeAdded { get; set; }
+    //}
 }

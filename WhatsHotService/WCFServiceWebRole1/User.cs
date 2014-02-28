@@ -16,8 +16,8 @@ namespace WCFServiceWebRole1
     {
         public User()
         {
-            this.Tokens = new HashSet<Token>();
             this.Locations = new HashSet<Location>();
+            this.Tokens = new HashSet<Token>();
         }
     
         public int Id { get; set; }
@@ -25,7 +25,7 @@ namespace WCFServiceWebRole1
         public string HashedPassword { get; set; }
         public string DefaultLocation { get; set; }
     
-        public virtual ICollection<Token> Tokens { get; set; }
         public virtual ICollection<Location> Locations { get; set; }
+        public virtual ICollection<Token> Tokens { get; set; }
     }
 }
