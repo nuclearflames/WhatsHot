@@ -52,14 +52,12 @@ var
             url: "home/GetData",
             async: false,
             success: function (e) {
-                console.log(e);
-                $.each(e.Locations, function (i, v) {
-                    console.log(v.Id);
-                    // var marker = new google.maps.Marker({
-                    //     position: new,
-                    //     map: null
-                    // });
-                    // markers.push(marker);
+                $.each(JSON.parse(e).Locations, function (i, v) {
+                    var marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(v.Latitude, v.Longitude),
+                        map: null
+                    });
+                    markers.push(marker);
                 })
             },
             failure: function (e) {
