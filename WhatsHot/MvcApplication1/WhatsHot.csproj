@@ -274,6 +274,9 @@
     <Content Include="vendor\fontello-c4a6a098\font\fontello.ttf" />
     <Content Include="vendor\fontello-c4a6a098\font\fontello.woff" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\whatshot.pubxml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -19,6 +19,11 @@ namespace WCFServiceWebRole1
 
 
         [OperationContract]
+        [WebGet(UriTemplate = "PopulateRandomData", ResponseFormat = WebMessageFormat.Json)]
+        string PopulateRandomData();
+
+
+        [OperationContract]
         [WebGet(UriTemplate = "GetData/{value}", ResponseFormat=WebMessageFormat.Json)]
         string GetData(string value);
 
