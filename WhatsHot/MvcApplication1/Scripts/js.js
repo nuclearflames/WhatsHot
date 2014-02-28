@@ -79,6 +79,8 @@ if ($(window).width() < 768) {
 $('#location').val('Bonhill St, London') 
 
 
+        $('#map-canvas').width($(window).width());
+        $('#map-canvas').height($(window).height());
 
 	$(window).smartresize(function(){
         $('#map-canvas').width($(window).width());
