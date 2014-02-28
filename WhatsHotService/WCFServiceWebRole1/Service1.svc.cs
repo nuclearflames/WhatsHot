@@ -194,10 +194,13 @@ namespace WCFServiceWebRole1
             {
                 double latitude;
                 double longitude;
-                for (var i = 0; i < 1000; i++)
+                for (var i = 0; i < 200; i++)
                 {
-                    latitude = r.NextDouble() + 51;
-                    longitude = r.NextDouble() - 1;
+                    var angle = r.NextDouble() * Math.PI * 2;
+                    var distance = r.NextDouble() * 0.2;
+                    latitude = Math.Cos(angle)*distance + 51.81;
+                    longitude = Math.Sin(angle) * distance + 0.18;
+                    
                     var newvote = new Location()
                     {
                         Lat = latitude.ToString(),
