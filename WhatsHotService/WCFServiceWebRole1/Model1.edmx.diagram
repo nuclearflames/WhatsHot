@@ -9,7 +9,6 @@
         <EntityTypeShape EntityType="whatshotModel.Token" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="whatshotModel.User" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
         <AssociationConnector Association="whatshotModel.FK_UserLocation" ManuallyRouted="false" />
-        <AssociationConnector Association="whatshotModel.FK_UserTokens" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
