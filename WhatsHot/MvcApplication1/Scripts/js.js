@@ -15,7 +15,7 @@ $('.hidden-in').show().click(function(){
 
     $('#leaderboard-handle').click(function(){
         
-        $('#leaderboard ul').stop().slideToggle();
+        $('#leaderboard ul').slideToggle();
 
     });
 
@@ -66,6 +66,12 @@ $('#signinbutton').click(function(){
 if ($(window).width() < 768) {
 
 	$('#leaderboard ul').hide();
+
+	$('#leaderboard-handle').click(function(){
+		
+		$('#leaderboard ul').slideToggle();
+
+	});
 
 }
 
