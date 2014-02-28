@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Device.Location;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -139,8 +138,6 @@ namespace WCFServiceWebRole1
 
             if (!LocationHelper.IsLat(lat, out latitude) || !(LocationHelper.IsLong(@long, out longitude))) return "Invalid lat/long";
 
-            GeoCoordinate coord = new GeoCoordinate(latitude, longitude);
-
             using (var db = new WhatsHotContext())
             {
                 var newvote = new Location()
@@ -158,9 +155,34 @@ namespace WCFServiceWebRole1
             return "blah";
         }
 
+        public const double latlongincrement = 1 / 11000;
+
+        /// <summary>
+        /// delta 1 lat / long is roughly 110km = 110000m. We want roughly 10 meter increments
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="lat"></param>
+        /// <param name="long"></param>
+        /// <returns></returns>
         public HeatmapData[] GetHeatmapData(string token, string lat, string @long)
         {
-            return new HeatmapData[1];
+            List<HeatmapData> dataForUser = new List<HeatmapData>();
+
+            int userId;
+            if (!_tokenHelper.IsTokenValid(token, out userId)) return dataForUser.ToArray();
+
+            double latitude, longitude;
+            if (!LocationHelper.IsLat(lat, out latitude) || !(LocationHelper.IsLong(@long, out longitude))) return dataForUser.ToArray();
+
+            List<Location> locations;
+
+            using (var db = new WhatsHotContext())
+            {
+                locations = (from Locations in db.Locations
+                             select Locations).ToList();
+            }
+
+            return dataForUser.ToArray();
         }
         
     }
