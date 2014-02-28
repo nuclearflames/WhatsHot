@@ -9,9 +9,9 @@ namespace WCFServiceWebRole1.Models
 {
     public class HeatmapData
     {
-        [Key]
-        Int64 Id { get; set; }
-        GeoCoordinate LatLong { get; set; }
-        double Weight { get; set; }
+        public Int64 Id { get; set; }
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
+        public double Weight { get; set; }
     }
 }

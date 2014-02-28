@@ -143,7 +143,16 @@ namespace WCFServiceWebRole1
 
             using (var db = new WhatsHotContext())
             {
+                var newvote = new Location()
+                {
+                    Lat = latitude.ToString(),
+                    Long = longitude.ToString(),
+                    TimeAdded = DateTime.Now,
+                    UserId = userId
+                };
 
+                db.Locations.Add(newvote);
+                db.SaveChanges();
             }
 
             return "blah";
