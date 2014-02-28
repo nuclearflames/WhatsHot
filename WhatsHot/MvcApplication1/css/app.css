@@ -201,7 +201,7 @@ top: 5px;
 	cursor: pointer;}
 
 .signinwrap {
-	position: relative;
+	position: absolute;
 	z-index: 10000000000000000;
 }
 
