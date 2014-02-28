@@ -164,7 +164,7 @@ namespace WCFServiceWebRole1
         /// <param name="lat"></param>
         /// <param name="long"></param>
         /// <returns></returns>
-        public HeatmapData[] GetHeatmapData(string token, string lat, string @long)
+        public HeatmapList GetHeatmapData(string token, string lat, string @long)
         {
             //int userId;
             //if (!_tokenHelper.IsTokenValid(token, out userId)) return dataForUser.ToArray();
@@ -174,12 +174,40 @@ namespace WCFServiceWebRole1
 
             using (var db = new whatshotEntities())
             {
-                return (from Locations in db.Locations
-                             select new HeatmapData() { Latitude = Locations.Lat, Longitude = Locations.Long, Weight = 1 }).ToArray();
+                return new HeatmapList
+                {
+                    Locations = (from Locations in db.Locations
+                                 select new HeatmapData() { Latitude = Locations.Lat, Longitude = Locations.Long, Weight = 1 }).ToArray()
+                };
             }
         }
-        
-    }
 
-    
+
+
+        public string PopulateRandomData()
+        {
+            var r = new Random();
+            using (var db = new whatshotEntities())
+            {
+                double latitude;
+                double longitude;
+                for (var i = 0; i < 1000; i++)
+                {
+                    latitude = r.NextDouble() + 51;
+                    longitude = r.NextDouble() - 1;
+                    var newvote = new Location()
+                    {
+                        Lat = latitude.ToString(),
+                        Long = longitude.ToString(),
+                        TimeAdded = DateTime.Now,
+                        User_Id = -1//userId
+
+                    };
+                    db.Locations.Add(newvote);
+                }
+                db.SaveChanges();
+            }
+            return "success";
+        }
+    }    
 }

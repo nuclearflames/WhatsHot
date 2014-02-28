@@ -19,6 +19,11 @@ namespace WCFServiceWebRole1
 
 
         [OperationContract]
+        [WebGet(UriTemplate = "PopulateRandomData", ResponseFormat = WebMessageFormat.Json)]
+        string PopulateRandomData();
+
+
+        [OperationContract]
         [WebGet(UriTemplate = "GetData/{value}", ResponseFormat=WebMessageFormat.Json)]
         string GetData(string value);
 
@@ -46,7 +51,7 @@ namespace WCFServiceWebRole1
 
         [OperationContract]
         [WebGet(UriTemplate = "GetHeatmapData/{token}/{lat}/{long}", ResponseFormat = WebMessageFormat.Json)]
-        HeatmapData[] GetHeatmapData(string token, string lat, string @long);
+        HeatmapList GetHeatmapData(string token, string lat, string @long);
 
     }    
 }
