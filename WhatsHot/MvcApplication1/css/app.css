@@ -1,3 +1,7 @@
+#map-canvas h3 {
+	color: black;
+}
+
 /* some default fontello styles */
 .icon-heart, .icon-cog {
 font-size:24px;
@@ -66,19 +70,29 @@ color:#767676;
 }
 
 
+
 /* Base
 ==========================*/
 
+body {
+	background: url(../img/sample_map.png)}
 
+/* override font */
+* {
+font-family: Myriad Pro;
+}
 
-h1,h2,h3,h4,h5,h6, .font-quote {
+h1,h2,h3,h4,h5,h6, .font-quote, h3 a {
 	font-family: 'Yanone Kaffeesatz', sans-serif }
 
-h3 {
+h3, h3 a {
 	color: #fff;
 	text-transform: uppercase; 
 	margin: 0 }
 
+h3 a:hover {
+	text-decoration: none;
+	color: #fff}
 
 /* some default fontello styles */
 .icon-heart, .icon-cog {
@@ -87,11 +101,6 @@ position: relative;
 top: 5px;
 }
 
-
-/* override font */
-* {
-font-family: Myriad Pro;
-}
 
 
 
@@ -226,16 +235,29 @@ font-family: Myriad Pro;
 .test_3 {
 	top: 30%;
 	left: 60%}	
-
 	
+.form-signin label {
+	margin-top:10px}
+
+.form-signin hr {
+	margin-bottom:10px}
+
+.signin {
+	margin-top: 30px;
+	box-shadow: 0 3px 7px 1px #888}
+
 
 /* Handle
 ==========================*/
 
 @media (max-width: 767px) {
-	#leaderboard:before {
-		content: "";
+	#leaderboard-handle {
 		background: url(../img/handle.png) no-repeat;
 		position: absolute;
+		left: 45%;
+		width: 100px;
+		margin-top:-10px;
+		z-index: 100;
+		height: 30px
 	}
 }

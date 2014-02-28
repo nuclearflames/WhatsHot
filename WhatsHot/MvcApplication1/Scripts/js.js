@@ -1,3 +1,34 @@
+$( document ).ready(function() {
+
+if ($(window).width() < 768) {
+
+    $('#leaderboard ul').hide();
+
+    $('#leaderboard-handle').click(function(){
+        
+        $('#leaderboard ul').slideToggle();
+
+    });
+
+}
+
+$.get("http://ipinfo.io", function(response) {
+
+  $('#location').val('Bonhill St, London')
+  
+}, "jsonp");
+
+$('.form-signin button').click(function(){
+alert('');
+
+
+})
+
+
+});
+
+
+
 var
 	map,
 	markers = [],
@@ -13,25 +44,29 @@ var
     dragMarker,
     infowindow,
     searchMarker,
+    styles = [ { "featureType": "poi.park", "stylers": [ { "color": "#999999" }, { "visibility": "off" } ] },{ "featureType": "road.highway", "stylers": [ { "visibility": "simplified" }, { "invert_lightness": true }, { "color": "#aaaaaa" } ] },{ "featureType": "road.local", "stylers": [ { "visibility": "simplified" }, { "color": "#bbbbbb" } ] },{ "featureType": "road.arterial", "stylers": [ { "visibility": "simplified" }, { "color": "#cccccc" } ] },{ "featureType": "poi", "stylers": [ { "visibility": "off" } ] },{ "featureType": "transit", "stylers": [ { "visibility": "off" } ] },{ "featureType": "water", "stylers": [ { "color": "#ffffff" } ] },{ } ],
 
-    fillRandomMarkers = function (callback) {
-    	var finishedLoop;
-    	for (var i = 0; i < 100; i++) {
-	    	var marker = new google.maps.Marker({
-			    position: new google.maps.LatLng(51.62 + (Math.random()/10), -0.3 + (Math.random()/10)),
-			    map: null
-			});
-			markers.push(marker);
-	    }
-		callback();
-    }
-
-    initialiseMarkers = function () {
-    	var marker = new google.maps.Marker({
-		    position: mapCenter,
-		    map: map
-		});
-		markers.push(marker);
+    initialiseMarkers = function (callback) {
+    	$.ajax({
+            type: "POST",
+            url: "home/GetData",
+            async: false,
+            success: function (e) {
+                console.log(e);
+                $.each(e.Locations, function (i, v) {
+                    console.log(v.Id);
+                    // var marker = new google.maps.Marker({
+                    //     position: new,
+                    //     map: null
+                    // });
+                    // markers.push(marker);
+                })
+            },
+            failure: function (e) {
+                console.log(e);
+            }
+        });
+        callback();
     },
 
     addMarker = function (latlng, title) {
@@ -40,7 +75,7 @@ var
 		    title: title,
 		    map: map,
             draggable: true,
-            icon: "admin/images/star.png"
+            icon: "../img/star-med.png"
 		});
         if (infowindow != null) {
             infowindow.close();
@@ -49,7 +84,7 @@ var
             addInfoWindowPullData(e.latLng);
         });
         infowindow = new google.maps.InfoWindow({
-            content: "<h3>" + title + "</h3><a id='location-save'></a>"
+            content: "<h3>" + title + "</h3>"
         });
         infowindow.open(map, dragMarker);
     },
@@ -68,11 +103,25 @@ var
     			infowindow.close();
     		}
 			infowindow = new google.maps.InfoWindow({
-				content: "<h3>" + results[0].name + "</h3>"
+				content: "<h3>" + results[0].name + "</h3><a id='location-save'>Save location...</a>"
 			});
 			infowindow.open(map, dragMarker);
 		}
     },
+    // attachEvent = function () {
+    //     $("#location-save").click(function() {
+    //         console.log(dragMarker);
+    //         $.ajax({
+    //             url: "PostDestination/123/",
+    //             success: function (e) {
+    //                 console.log(e);
+    //             },
+    //             failure: function (e) {
+    //                 console.log(e);
+    //             }
+    //         });
+    //     });
+    // },
     redrawHeatMapData = function (callback) {
     	for (var i = 0; i < markers.length; i++) {
 	    	heatMapData.push({
@@ -93,38 +142,52 @@ var
     },
 
     initialiseEvents = function () {
-		google.maps.event.addListener(map, 'click', function(e) {
-			if (dragMarker == null) {
-		    	dragMarker = new google.maps.Marker({
-				    position: e.latLng,
-				    map: map,
-				    draggable: true,
-				    title: "Where I am Going",
-				    icon: "admin/images/hearts.png"
-				});
-				addInfoWindowPullData(e.latLng);
-				google.maps.event.addListener(dragMarker, 'mouseup', function(e) {
-					addInfoWindowPullData(e.latLng);
-				});
-				markers.push(dragMarker);
-			}
-		});
+        $("#heart-button").click(function () {
+            if (window.location.hash == "#select") {
+                window.location.hash = "";
+                if (dragMarker != null) {
+                    dragMarker.setMap(null);
+                }
+            } else {
+                window.location.hash = "select";
+                if (dragMarker == null) {
+                    dragMarker = new google.maps.Marker({
+                        position: map.getCenter(),
+                        map: map,
+                        draggable: true,
+                        title: "Where I am Going",
+                        icon: "img/hearts.png"
+                    });
+                    addInfoWindowPullData(map.getCenter());
+                    google.maps.event.addListener(dragMarker, 'mouseup', function(e) {
+                        addInfoWindowPullData(map.getCenter());
+                    });
+                    markers.push(dragMarker);
+
+                }
+            }
+        });
     },
 
     doStuff = function () {
         initialiseEvents();
-        fillRandomMarkers(function () {
-			redrawHeatMapData(function () {
-				redrawHeatMap();
-			})
-		});
-        //initialiseMarkers();
+  //       fillRandomMarkers(function () {
+		// 	redrawHeatMapData(function () {
+		// 		redrawHeatMap();
+		// 	})
+		// });
+        initialiseMarkers(function () {
+            redrawHeatMapData(function () {
+                redrawHeatMap();
+            })
+        });
         searchMap();
     },
 
     initialiseMap = function () {
 
         map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+        map.setOptions({styles: styles});
         doStuff();
 
     },

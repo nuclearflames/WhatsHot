@@ -29,12 +29,12 @@ and open the template in the editor.
         <div class="navbar-collapse collapse navbar-inverse-collapse">
 
             <form class="navbar-form navbar-left">
-                <input type="text" placeholder="Search map" class="form-control col-lg-8">
-                <button type="button" class="btn btn-default"><span class="icon-search"></span></button>
+                <input type="text" id="search-box" placeholder="Search map" class="form-control col-lg-8">
+                <button type="button" id="submit-box" class="btn btn-default"><span class="icon-search"></span></button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li><a><span class="icon-heart"></span></a></li>
-                <li><a><span class="icon-cog"></span></a></li>
+                <li><a id="heart-button"><span class="icon-heart" ></span></a></li>
+                <li><a id="settings-button"><span class="icon-cog"></span></a></li>
             </ul>
         </div><!-- /.nav-collapse -->
     </div>
@@ -42,6 +42,7 @@ and open the template in the editor.
     @RenderBody()
 
     <script src="scripts/jquery.js"></script>
+    <script src="scripts/underscore.js"></script>
     <script src="scripts/bootstrap.min.js"></script>
     <script src="scripts/bootswatch.js"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=visualization,places&key=AIzaSyCHK19GVr9IbguhKsbTMGTAwDZmLXm9jVQ&sensor=false">

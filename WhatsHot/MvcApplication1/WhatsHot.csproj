@@ -222,6 +222,7 @@
     <Content Include="Scripts\libs\jqueryui-1.10.0\jquery-ui.min.js" />
     <Content Include="Scripts\libs\twitter-bootstrap-2.2.2\bootstrap.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\underscore.js" />
     <Content Include="vendor\fontello-c4a6a098\css\animation.css" />
     <Content Include="vendor\fontello-c4a6a098\css\fontello-codes.css" />
     <Content Include="vendor\fontello-c4a6a098\css\fontello-embedded.css" />
