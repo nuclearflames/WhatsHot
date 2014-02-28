@@ -169,6 +169,9 @@ top: 5px;
 .form-signin label {
 	margin-top:10px}
 
+.form-signin input[type="text"] {
+	width:100%}
+
 .form-signin hr {
 	margin-bottom:10px}
 
@@ -255,7 +258,7 @@ li.hidden-in, .signinwrap {
 	
 	.navbar-form {
 		position: relative;
-		width: 60%;
+		width: 50%;
 		left: 20px;
 		top:2px;
 		border: 0 !important;
@@ -265,7 +268,7 @@ li.hidden-in, .signinwrap {
 	}
 
 	.navbar-form input[type="text"] {
-		width:75%;
+		width:65%;
 	}
 }
 
