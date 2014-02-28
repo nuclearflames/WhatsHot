@@ -174,10 +174,13 @@ namespace WCFServiceWebRole1
 
             using (var db = new whatshotEntities())
             {
+                var locations = (from Locations in db.Locations
+                                 select Locations).ToList();
+
                 return new HeatmapList
                 {
-                    Locations = (from Locations in db.Locations
-                                 select new HeatmapData() { Latitude = Locations.Lat, Longitude = Locations.Long, Weight = 1 }).ToArray()
+                    Locations =  (from loc in locations.AsParallel()
+                           select new HeatmapData() { Latitude = loc.Lat, Longitude = loc.Long, Weight = 1 }).ToArray()
                 };
             }
         }
