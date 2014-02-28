@@ -177,40 +177,71 @@ namespace WCFServiceWebRole1
                 var locations = (from Locations in db.Locations
                                  select Locations).ToList();
 
-                return new HeatmapList
+                var list = new HeatmapList
                 {
                     Locations =  (from loc in locations.AsParallel()
                            select new HeatmapData() { Latitude = loc.Lat, Longitude = loc.Long, Weight = 1 }).ToArray()
                 };
+                var num = list.Locations.Count();
+                foreach (var l in list.Locations.Skip(num - 10))
+                    l.Weight = 10;
+
+                return list;
             }
         }
 
+        private void MakeSomePoints(double latCentre, double lonCentre, double distanceRand, whatshotEntities1 db, int number)
+        {
+            var r = new Random();
+            double latitude;
+            double longitude;
+            for (var i = 0; i < number; i++)
+            {
+                var angle = r.NextDouble() * Math.PI * 2;
+                var distance = r.NextDouble() * distanceRand;
+                latitude = Math.Cos(angle) * distance + latCentre;
+                longitude = Math.Sin(angle) * distance + lonCentre;
 
+                var newvote = new Location()
+                {
+                    Lat = latitude.ToString(),
+                    Long = longitude.ToString(),
+                    TimeAdded = DateTime.Now,
+                    User_Id = -1,//userId
+                    
+                };
+                db.Locations.Add(newvote);
+            }
+        }
 
         public string PopulateRandomData()
         {
-            var r = new Random();
             using (var db = new whatshotEntities1())
             {
-                double latitude;
-                double longitude;
-                for (var i = 0; i < 200; i++)
-                {
-                    var angle = r.NextDouble() * Math.PI * 2;
-                    var distance = r.NextDouble() * 0.2;
-                    latitude = Math.Cos(angle)*distance + 51.46;
-                    longitude = Math.Sin(angle) * distance + 0.106;
-                    
-                    var newvote = new Location()
-                    {
-                        Lat = latitude.ToString(),
-                        Long = longitude.ToString(),
-                        TimeAdded = DateTime.Now,
-                        User_Id = -1//userId
+//                MakeSomePoints(51.62, -0.3, 0.15, db, 50);
+                //MakeSomePoints(51.46, 0.106, 0.2, db, 50);
+                //MakeSomePoints(51.46, 0.106, 0.4, db, 75);
+                //MakeSomePoints(51.46, 0.106, 0.6, db, 100);
 
-                    };
-                    db.Locations.Add(newvote);
-                }
+                //double latitude;
+                //double longitude;
+                //for (var i = 0; i < 50; i++)
+                //{
+                //    var angle = r.NextDouble() * Math.PI * 2;
+                //    var distance = r.NextDouble() * 0.2;
+                //    latitude = Math.Cos(angle)*distance + 51.46;
+                //    longitude = Math.Sin(angle) * distance + 0.106;
+                    
+                //    var newvote = new Location()
+                //    {
+                //        Lat = latitude.ToString(),
+                //        Long = longitude.ToString(),
+                //        TimeAdded = DateTime.Now,
+                //        User_Id = -1//userId
+
+                //    };
+                //    db.Locations.Add(newvote);
+                //}
                 db.SaveChanges();
             }
             return "success";
