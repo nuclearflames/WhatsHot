@@ -349,7 +349,7 @@ var
                 'address': results[0].name,
                 'going': results[0].rating * 10
             };
-            $("#leaderboard ul").prepend(_.template(dataShowTemplate, data, { variable: "data" }));
+            //$("#leaderboard ul").prepend(_.template(dataShowTemplate, data, { variable: "data" }));
     	}
     },
 	init = function() {
