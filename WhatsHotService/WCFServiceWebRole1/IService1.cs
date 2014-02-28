@@ -13,6 +13,10 @@ namespace WCFServiceWebRole1
     [ServiceContract]
     public interface IService1
     {
+        [OperationContract]
+        [WebGet(UriTemplate = "ping}", ResponseFormat = WebMessageFormat.Json)]
+        string ping();
+
 
         [OperationContract]
         [WebGet(UriTemplate = "GetData/{value}", ResponseFormat=WebMessageFormat.Json)]
@@ -27,24 +31,22 @@ namespace WCFServiceWebRole1
         [WebGet(UriTemplate = "GetUserProfile/{token}", ResponseFormat = WebMessageFormat.Json)]
         string GetUserProfile(string token);
 
-
-        //[OperationContract]
-        //[WebGet(UriTemplate = "Authenticate/{user}/{password}/{method}", ResponseFormat = WebMessageFormat.Json)]
-        //string Authenticate(string user, string password, string method);
-
-
         [OperationContract]
         [WebInvoke(UriTemplate = "Register/{user}/{password}/{defaultlocation}", ResponseFormat = WebMessageFormat.Json, Method = "POST")]
         string Register(string user, string password, string defaultlocation);
 
+        [OperationContract]
+        [WebGet(UriTemplate = "Authenticate/{user}/{password}/{method}", ResponseFormat = WebMessageFormat.Json)]
+        string Authenticate(string user, string password, string method);
 
-        //[OperationContract]
-        //[WebInvoke(UriTemplate = "PostDestination/{token}/{lat}/{long}", ResponseFormat = WebMessageFormat.Json, Method = "POST")]
-        //void PostDestination(string token, string lat, string @long);
 
-        //[OperationContract]
-        //[WebGet(UriTemplate = "GetHeatmapData/{token}/{lat}/{long}", ResponseFormat = WebMessageFormat.Json)]
-        //HeatmapData[] GetHeatmapData(string token, string lat, string @long);
+        [OperationContract]
+        [WebInvoke(UriTemplate = "PostDestination/{token}/{lat}/{long}", ResponseFormat = WebMessageFormat.Json, Method = "POST")]
+        string PostDestination(string token, string lat, string @long);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "GetHeatmapData/{token}/{lat}/{long}", ResponseFormat = WebMessageFormat.Json)]
+        HeatmapData[] GetHeatmapData(string token, string lat, string @long);
 
     }    
 }

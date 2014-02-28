@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Device.Location;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -13,9 +14,14 @@ namespace WCFServiceWebRole1
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in code, svc and config file together.
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
-    public partial class Service1 : IService1
+    public class Service1 : IService1
     {
         private TokenHelper _tokenHelper = new TokenHelper();
+
+        public string ping()
+        {
+            return "pong";
+        }
 
         public string GetData(string value)
         {
@@ -41,7 +47,8 @@ namespace WCFServiceWebRole1
 
 
             // check if default location is a valid location
-            if (!LocationHelper.IsPostcode(defaultlocation) && !LocationHelper.IsLatLong(defaultlocation)) return;
+            double lat,loong;
+            if (!LocationHelper.IsPostcode(defaultlocation) && !LocationHelper.IsLatLong(defaultlocation,out lat, out loong)) return;
 
             using (var db = new WhatsHotContext())
             {
@@ -83,7 +90,8 @@ namespace WCFServiceWebRole1
         public string Register(string user, string password, string defaultlocation)
         {
             int userId;
-            if (!LocationHelper.IsPostcode(defaultlocation) && !(LocationHelper.IsLatLong(defaultlocation))) return "";
+            double lat, loong;
+            if (!LocationHelper.IsPostcode(defaultlocation) && !(LocationHelper.IsLatLong(defaultlocation,out lat, out loong))) return "";
 
             // check if user already exists
             using (var db = new WhatsHotContext())
@@ -103,6 +111,50 @@ namespace WCFServiceWebRole1
 
             return _tokenHelper.CreateToken(userId);
         }
+
+        public string Authenticate(string user, string password, string method)
+        {
+            int userId;
+            using (var db = new WhatsHotContext())
+            {
+                var theuser = (from User in db.Users
+                           where User.UserName == user && User.HashedPassword == password
+                           select User).FirstOrDefault();
+
+                if (theuser == null) return "";
+
+                userId = theuser.UserId;
+            }
+
+            return _tokenHelper.CreateToken(userId);
+        }
+
+        public string PostDestination(string token, string lat, string @long)
+        {
+            // check if valid token & get user id
+            int userId;
+            if (!_tokenHelper.IsTokenValid(token, out userId)) return "Invalid token";
+
+            double latitude, longitude;
+
+            if (!LocationHelper.IsLat(lat, out latitude) || !(LocationHelper.IsLong(@long, out longitude))) return "Invalid lat/long";
+
+            GeoCoordinate coord = new GeoCoordinate(latitude, longitude);
+
+            using (var db = new WhatsHotContext())
+            {
+
+            }
+
+            return "blah";
+        }
+
+        public HeatmapData[] GetHeatmapData(string token, string lat, string @long)
+        {
+            return new HeatmapData[1];
+        }
         
     }
+
+    
 }
