@@ -128,7 +128,8 @@ var
                 $.each(JSON.parse(e).Locations, function (i, v) {
                     var marker = new google.maps.Marker({
                         position: new google.maps.LatLng(v.Latitude, v.Longitude),
-                        map: null
+                        map: null,
+                        weight: v.weight
                     });
                     markers.push(marker);
                 })
@@ -155,7 +156,7 @@ var
             addInfoWindowPullData(e.latLng);
         });
         infowindow = new google.maps.InfoWindow({
-            content: "<h3>" + title + "</h3>"
+            content: "<h4>" + title + "</h4>"
         });
         infowindow.open(map, dragMarker);
     },
@@ -206,7 +207,7 @@ var
     redrawHeatMapData = function (callback) {
     	for (var i = 0; i < markers.length; i++) {
 	    	heatMapData.push({
-	    		location: markers[i].position, weight: 1000
+	    		location: markers[i].position, weight: markers[i].weight
 		 	});
 		}
 		callback();
@@ -219,6 +220,7 @@ var
     	heatMap = new google.maps.visualization.HeatmapLayer({
   			data: heatMapData
 		});
+        heatMap.set('radius', heatMap.get('radius') ? null : 30);
 		heatMap.setMap(map);
     },
 
@@ -232,17 +234,16 @@ var
             } else {
                 window.location.hash = "select";
                 if (dragMarker != null) {
-                    dragMarker.setPosition(map.getCenter());
-                } else {
-                    dragMarker = new google.maps.Marker({
-                        position: map.getCenter(),
-                        map: map,
-                        draggable: true,
-                        title: "Where I am Going",
-                        icon: "img/hearts.png"
-                    });
-                    markers.push(dragMarker);
+                    dragMarker.setMap(null);
                 }
+                dragMarker = new google.maps.Marker({
+                    position: map.getCenter(),
+                    map: map,
+                    draggable: true,
+                    title: "Where I am Going",
+                    icon: "img/hearts.png"
+                });
+                markers.push(dragMarker);
                 addInfoWindowPullData(map.getCenter());
                 google.maps.event.addListener(dragMarker, 'mouseup', function(e) {
                     addInfoWindowPullData(map.getCenter());
