@@ -15,7 +15,7 @@ $('.hidden-in').show().click(function(){
 
     $('#leaderboard-handle').click(function(){
         
-        $('#leaderboard ul').slideToggle();
+        $('#leaderboard ul').stop().slideToggle();
 
     });
 
