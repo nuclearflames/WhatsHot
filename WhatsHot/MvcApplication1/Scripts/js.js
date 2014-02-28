@@ -136,7 +136,7 @@ var
     			infowindow.close();
     		}
 			infowindow = new google.maps.InfoWindow({
-				content: "<h3>" + results[0].name + "</h3><a id='location-save' href='#dragMarker'>Save location...</a>"
+				content: "<h4>" + results[0].name + "</h4><a id='location-save' href='#dragMarker'>Save location...</a>"
 			});
 			infowindow.open(map, dragMarker);
 		}
@@ -243,10 +243,28 @@ var
 			service.textSearch(request, searchData);
     	});
     },
+    dataShowTemplate = [
+        "<li>",
+            "<span class='star'>",
+                "<img src='img/star.png'>",
+            "</span>",
+            "<%= data.address %>",
+            "<span>",
+                "100 going",
+            "</span>",
+        "</li>"
+    ].join("\n"),
     searchData = function (results, status) {
     	if (status == google.maps.places.PlacesServiceStatus.OK) {
     		addMarker(results[0].geometry.location, results[0].formatted_address);
     		map.setCenter(results[0].geometry.location);
+            $.each(results,function(i, v) {
+                console.log(v);
+                var data = {
+                    'address': v.name  
+                }
+                $("#leaderboard ul").prepend(_.template(dataShowTemplate, data, { variable: "data" }));
+            });
     	}
     },
 	init = function() {
