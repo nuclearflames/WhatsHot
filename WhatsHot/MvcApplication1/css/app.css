@@ -170,7 +170,7 @@ top: 5px;
 	margin-top:10px}
 
 #email, #password, #location {
-	width:100%}
+	max-width: 300px; }
 
 .form-signin hr {
 	margin-bottom:10px}
