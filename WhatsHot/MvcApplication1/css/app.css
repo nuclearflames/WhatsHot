@@ -197,6 +197,9 @@ top: 5px;
 .menu-icons {
 	float: right}
 
+.navbar-right a {
+	cursor: pointer;}
+
 
 li.hidden-in, .signinwrap {
 	display: none}
