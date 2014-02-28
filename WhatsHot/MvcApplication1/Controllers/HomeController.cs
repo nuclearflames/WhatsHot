@@ -19,7 +19,7 @@ namespace WhatsHot.Controllers
         }
 
         [HttpPost]
-        public string GetData(string id)
+        public string GetData()
         {
             try
             {
@@ -27,6 +27,31 @@ namespace WhatsHot.Controllers
 
                 HttpWebRequest req = (HttpWebRequest)WebRequest.Create("http://whatshot.cloudapp.net/Service1.svc/GetHeatmapData/123/0/0");
                 req.ContentType = "application/json";
+                req.Method = "GET";
+
+                HttpWebResponse res = (HttpWebResponse)req.GetResponse();
+                using (StreamReader reader = new StreamReader(res.GetResponseStream()))
+                {
+                    json += reader.ReadToEnd();
+                }
+                return json;
+
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                return "failed response";
+            }
+        }
+
+        [HttpPost]
+        public string PostData(string lat, string lng)
+        {
+            try
+            {
+                var json = "";
+
+                HttpWebRequest req = (HttpWebRequest)WebRequest.Create("http://whatshot.cloudapp.net/Service1.svc/PostDestination/123/" + lat + "/" + lng);
                 req.Method = "GET";
 
                 HttpWebResponse res = (HttpWebResponse)req.GetResponse();

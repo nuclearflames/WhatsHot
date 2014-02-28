@@ -101,25 +101,32 @@ var
     			infowindow.close();
     		}
 			infowindow = new google.maps.InfoWindow({
-				content: "<h3>" + results[0].name + "</h3><a id='location-save'>Save location...</a>"
+				content: "<h3>" + results[0].name + "</h3><a id='location-save' href='#dragMarker'>Save location...</a>"
 			});
 			infowindow.open(map, dragMarker);
 		}
     },
-    // attachEvent = function () {
-    //     $("#location-save").click(function() {
-    //         console.log(dragMarker);
-    //         $.ajax({
-    //             url: "PostDestination/123/",
-    //             success: function (e) {
-    //                 console.log(e);
-    //             },
-    //             failure: function (e) {
-    //                 console.log(e);
-    //             }
-    //         });
-    //     });
-    // },
+    attachEvent = function () {
+        $(window).on('hashchange', function () {
+            if (window.location.hash == "#dragMarker") {
+                console.log(dragMarker);
+                $.ajax({
+                    type: "POST",
+                    data: JSON.stringify({
+                        lat: dragMarker.position.d,
+                        lng: dragMarker.position.e
+                    }),
+                    url: "home/PostData/",
+                    success: function (e) {
+                        console.log(e);
+                    },
+                    failure: function (e) {
+                        console.log(e);
+                    }
+                });
+            }
+        });
+    },
     redrawHeatMapData = function (callback) {
     	for (var i = 0; i < markers.length; i++) {
 	    	heatMapData.push({
@@ -161,6 +168,7 @@ var
                         addInfoWindowPullData(map.getCenter());
                     });
                     markers.push(dragMarker);
+                    attachEvent();
 
                 }
             }
