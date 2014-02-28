@@ -1,10 +1,4 @@
 $( document ).ready(function() {
-
-//Map size
-
-$('#map-canvas').width($(window).width());
-$('#map-canvas').height($(window).height());
-
 //Smart resize
 	(function($,sr){
 
@@ -51,6 +45,8 @@ $('#location').val('Bonhill St, London')
 
 
 	$(window).smartresize(function(){
+        $('#map-canvas').width($(window).width());
+        $('#map-canvas').height($(window).height());
 
 	if($(window).width() <= 768){	
 
@@ -197,18 +193,22 @@ var
                 }
             } else {
                 window.location.hash = "select";
-                dragMarker = new google.maps.Marker({
-                    position: map.getCenter(),
-                    map: map,
-                    draggable: true,
-                    title: "Where I am Going",
-                    icon: "img/hearts.png"
-                });
+                if (dragMarker != null) {
+                    dragMarker.setPosition(map.getCenter());
+                } else {
+                    dragMarker = new google.maps.Marker({
+                        position: map.getCenter(),
+                        map: map,
+                        draggable: true,
+                        title: "Where I am Going",
+                        icon: "img/hearts.png"
+                    });
+                    markers.push(dragMarker);
+                }
                 addInfoWindowPullData(map.getCenter());
                 google.maps.event.addListener(dragMarker, 'mouseup', function(e) {
                     addInfoWindowPullData(map.getCenter());
                 });
-                markers.push(dragMarker);
                 attachEvent();
             }
         });
@@ -262,13 +262,10 @@ var
     	if (status == google.maps.places.PlacesServiceStatus.OK) {
     		addMarker(results[0].geometry.location, results[0].formatted_address);
     		map.setCenter(results[0].geometry.location);
-            $.each(results,function(i, v) {
-                console.log(v);
-                var data = {
-                    'address': v.name  
-                }
-                $("#leaderboard ul").prepend(_.template(dataShowTemplate, data, { variable: "data" }));
-            });
+            var data = {
+                'address': results[0].name  
+            }
+            $("#leaderboard ul").prepend(_.template(dataShowTemplate, data, { variable: "data" }));
     	}
     },
 	init = function() {
