@@ -200,6 +200,10 @@ top: 5px;
 .navbar-right a {
 	cursor: pointer;}
 
+.signinwrap {
+	position: relative;
+	z-index: 10000000000000000;
+}
 
 li.hidden-in, .signinwrap {
 	display: none}
