@@ -24,7 +24,7 @@ namespace WCFServiceWebRole1
 
         public string GetData(string value)
         {
-            using (var db = new whatshotEntities())
+            using (var db = new whatshotEntities1())
             {
                 var userCount = db.Users.Count();
 
@@ -49,7 +49,7 @@ namespace WCFServiceWebRole1
             double lat,loong;
             if (!LocationHelper.IsPostcode(defaultlocation) && !LocationHelper.IsLatLong(defaultlocation,out lat, out loong)) return;
 
-            using (var db = new whatshotEntities())
+            using (var db = new whatshotEntities1())
             {
                 var query = from u in db.Users
                             where u.Id == userId
@@ -72,7 +72,7 @@ namespace WCFServiceWebRole1
             int userId;
             if (!_tokenHelper.IsTokenValid(token, out userId)) return "Invalid token";
 
-            using (var db = new whatshotEntities())
+            using (var db = new whatshotEntities1())
             {
                 var query = from u in db.Users
                             where u.Id == userId
@@ -93,7 +93,7 @@ namespace WCFServiceWebRole1
             if (!LocationHelper.IsPostcode(defaultlocation) && !(LocationHelper.IsLatLong(defaultlocation,out lat, out loong))) return "";
 
             // check if user already exists
-            using (var db = new whatshotEntities())
+            using (var db = new whatshotEntities1())
             {
                 var userExists = (from User in db.Users
                                   where User.UserName == user
@@ -114,7 +114,7 @@ namespace WCFServiceWebRole1
         public string Authenticate(string user, string password, string method)
         {
             int userId;
-            using (var db = new whatshotEntities())
+            using (var db = new whatshotEntities1())
             {
                 var theuser = (from User in db.Users
                            where User.UserName == user && User.HashedPassword == password
@@ -138,7 +138,7 @@ namespace WCFServiceWebRole1
 
             if (!LocationHelper.IsLat(lat, out latitude) || !(LocationHelper.IsLong(@long, out longitude))) return "Invalid lat/long";
 
-            using (var db = new whatshotEntities())
+            using (var db = new whatshotEntities1())
             {
                 var newvote = new Location()
                 {
@@ -172,7 +172,7 @@ namespace WCFServiceWebRole1
             double latitude, longitude;
             if (!LocationHelper.IsLat(lat, out latitude) || !(LocationHelper.IsLong(@long, out longitude))) return null;
 
-            using (var db = new whatshotEntities())
+            using (var db = new whatshotEntities1())
             {
                 var locations = (from Locations in db.Locations
                                  select Locations).ToList();
@@ -190,7 +190,7 @@ namespace WCFServiceWebRole1
         public string PopulateRandomData()
         {
             var r = new Random();
-            using (var db = new whatshotEntities())
+            using (var db = new whatshotEntities1())
             {
                 double latitude;
                 double longitude;

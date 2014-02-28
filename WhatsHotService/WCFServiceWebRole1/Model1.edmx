@@ -45,18 +45,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserTokens">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="Tokens" Type="Self.Tokens" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Tokens">
-              <PropertyRef Name="User_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="whatshotModelStoreContainer">
           <EntitySet Name="Locations" EntityType="Self.Locations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tokens" EntityType="Self.Tokens" Schema="dbo" store:Type="Tables" />
@@ -64,10 +52,6 @@
           <AssociationSet Name="FK_UserLocation" Association="Self.FK_UserLocation">
             <End Role="Users" EntitySet="Users" />
             <End Role="Locations" EntitySet="Locations" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserTokens" Association="Self.FK_UserTokens">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Tokens" EntitySet="Tokens" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -117,7 +101,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="whatshotEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="whatshotEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Locations" EntityType="Self.Location" />
           <EntitySet Name="Tokens" EntityType="Self.Token" />
           <EntitySet Name="Users" EntityType="Self.User" />
@@ -131,7 +115,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="whatshotModelStoreContainer" CdmEntityContainer="whatshotEntities">
+        <EntityContainerMapping StorageEntityContainer="whatshotModelStoreContainer" CdmEntityContainer="whatshotEntities1">
           <EntitySetMapping Name="Locations">
             <EntityTypeMapping TypeName="whatshotModel.Location">
               <MappingFragment StoreEntitySet="Locations">

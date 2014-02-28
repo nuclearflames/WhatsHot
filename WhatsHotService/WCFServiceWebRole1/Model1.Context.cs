@@ -13,10 +13,10 @@ namespace WCFServiceWebRole1
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class whatshotEntities : DbContext
+    public partial class whatshotEntities1 : DbContext
     {
-        public whatshotEntities()
-            : base("name=whatshotEntities")
+        public whatshotEntities1()
+            : base("name=whatshotEntities1")
         {
         }
     

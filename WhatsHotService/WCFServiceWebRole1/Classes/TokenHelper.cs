@@ -11,7 +11,7 @@ namespace WCFServiceWebRole1.Classes
     {
         public bool IsTokenValid(string token, out int userId)
         {
-            using (var db = new whatshotEntities())
+            using (var db = new whatshotEntities1())
             {
                 var tokennn = (from Token in db.Tokens
                                where Token.TokenString == token
@@ -28,7 +28,7 @@ namespace WCFServiceWebRole1.Classes
 
             if (!string.IsNullOrWhiteSpace(existingToken)) return existingToken;
 
-            using (var db = new whatshotEntities())
+            using (var db = new whatshotEntities1())
             {
                 var token = new Token()
                 {
@@ -46,7 +46,7 @@ namespace WCFServiceWebRole1.Classes
 
         public string HasToken(int userId)
         {
-            using (var db = new whatshotEntities())
+            using (var db = new whatshotEntities1())
             {
                 return (from Token in db.Tokens
                         where Token.User_Id == userId
