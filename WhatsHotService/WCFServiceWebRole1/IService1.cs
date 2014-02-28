@@ -14,7 +14,7 @@ namespace WCFServiceWebRole1
     public interface IService1
     {
         [OperationContract]
-        [WebGet(UriTemplate = "ping}", ResponseFormat = WebMessageFormat.Json)]
+        [WebGet(UriTemplate = "ping", ResponseFormat = WebMessageFormat.Json)]
         string ping();
 
 
