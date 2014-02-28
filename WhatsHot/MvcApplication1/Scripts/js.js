@@ -3,16 +3,14 @@ $( document ).ready(function() {
 $('.hidden-out').hide();
 $('.hidden-in').show().click(function(){
 
-$('.signinwrap').show();
+    $('.signinwrap').show();
 
-});
+    $('#signinbutton').click(function(){
 
-$('#signinbutton').click(function(){
-
-$('.hidden-in').hide();
-$('.hidden-out').show();
-$('.signinwrap').hide();
-})
+        $('.hidden-in').hide();
+        $('.hidden-out').show();
+        $('.signinwrap').hide();
+    });
 
 
     $('#leaderboard-handle').click(function(){
@@ -22,18 +20,18 @@ $('.signinwrap').hide();
     });
 
 
-//Map size
+    //Map size
 
-$('.signinwrap').show();
+    $('.signinwrap').show();
 
 });
 
 $('#signinbutton').click(function(){
 
-$('.hidden-in').hide();
-$('.hidden-out').show();
-$('.signinwrap').hide();
-})
+    $('.hidden-in').hide();
+    $('.hidden-out').show();
+    $('.signinwrap').hide();
+});
 
 //Smart resize
 	(function($,sr){
@@ -78,7 +76,7 @@ if ($(window).width() < 768) {
 }
 
 
-$('#location').val('Bonhill St, London')
+$('#location').val('Bonhill St, London') 
 
 
 
