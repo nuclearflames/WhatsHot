@@ -187,6 +187,9 @@ top: 5px;
 	position: relative;
 	top: 2px}
 
+.signinwrap {
+	width: 100%}
+
 .navbar-header {
 	width: 100%;
 	min-width: 315px}
