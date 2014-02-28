@@ -187,6 +187,9 @@ top: 5px;
 	position: relative;
 	top: 2px}
 
+.navbar-form {
+	margin-right: 0 !important}
+
 .signinwrap {
 	width: 100%}
 
@@ -261,7 +264,7 @@ li.hidden-in, .signinwrap {
 	
 	.navbar-form {
 		position: relative;
-		width: 50%;
+		width: 62%;
 		left: 20px;
 		top:2px;
 		border: 0 !important;
