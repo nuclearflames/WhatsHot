@@ -1,4 +1,19 @@
 $( document ).ready(function() {
+
+$('.hidden-out').hide();
+$('.hidden-in').show().click(function(){
+
+$('.signinwrap').show();
+
+});
+
+$('#signinbutton').click(function(){
+
+$('.hidden-in').hide();
+$('.hidden-out').show();
+$('.signinwrap').hide();
+})
+
 //Smart resize
 	(function($,sr){
 
